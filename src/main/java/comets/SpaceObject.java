@@ -10,7 +10,6 @@ public class SpaceObject {
 	Point3D position;
 
 	public SpaceObject(String name, float mass) {
-		//material point
 		this.name = name;
 		this.mass = mass;
 	}
@@ -25,6 +24,11 @@ public class SpaceObject {
 		this.position = point;
 	}
 
-	public Point3D getPosition() { return this.position; }
-	public double getMass() { return this.mass; }
+	public Point3D getPosition() {
+		return this.position;
+	}
+
+	public double getMass() {
+		return this.mass;
+	}
 }
