@@ -9,12 +9,12 @@ public class SpaceObject {
 	double radius;
 	Point3D position;
 
-	public SpaceObject(String name, float mass) {
+	public SpaceObject(String name, double mass) {
 		this.name = name;
 		this.mass = mass;
 	}
 
-	public SpaceObject(String name, float mass, float radius) {
+	public SpaceObject(String name, double mass, double radius) {
 		this.name = name;
 		this.mass = mass;
 		this.radius = radius;
