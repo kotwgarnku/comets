@@ -1,8 +1,5 @@
 package comets;
 
-import javafx.geometry.Point3D;
-
-
 public class SpaceObject {
 	private String name;
 	private double mass;

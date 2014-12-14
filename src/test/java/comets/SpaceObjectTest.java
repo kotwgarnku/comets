@@ -1,6 +1,5 @@
 package comets;
 
-import javafx.geometry.Point3D;
 import org.junit.Before;
 import org.junit.Test;
 
