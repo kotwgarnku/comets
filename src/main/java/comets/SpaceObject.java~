@@ -9,20 +9,18 @@ public class SpaceObject {
 	double radius;
 	Point3D position;
 
-	public SpaceObject(String name, float mass, Point3D position) {
+	public SpaceObject(String name, float mass) {
 		this.name = name;
 		this.mass = mass;
-		this.position = position;
 	}
 
-	public SpaceObject(String name, float mass, float radius, Point3D position) {
+	public SpaceObject(String name, float mass, float radius) {
 		this.name = name;
 		this.mass = mass;
 		this.radius = radius;
-		this.position = position;
 	}
 
-	public void setPosition(Point3D point) {
+	public void DefinePosition(Point3D point) {
 		this.position = point;
 	}
 
