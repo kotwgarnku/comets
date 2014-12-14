@@ -1,7 +1,5 @@
-package src.main.java;
-/**
-* @author  Filip Konieczny, Paweł Koniarski
-*/
+package comets;
+
 import javafx.geometry.Point3D;
 
 
