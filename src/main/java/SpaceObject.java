@@ -1,12 +1,14 @@
+package src.main.java;
 /**
 * @author  Filip Konieczny, Paweł Koniarski
 */
-package comets;
+import javafx.geometry.Point3D;
+
 
 public class SpaceObject {
 	String name;
-	float mass;
-	float radius;
+	double mass;
+	double radius;
 	Point3D position;
 
 	public SpaceObject(String name, float mass) {
@@ -21,7 +23,10 @@ public class SpaceObject {
 		this.radius = radius;
 	}
 
-	public DefinePosition(Point3D point) {
+	public void DefinePosition(Point3D point) {
 		this.position = point;
 	}
+
+	public Point3D getPosition() { return this.position; }
+	public double getMass() { return this.mass; }
 }
