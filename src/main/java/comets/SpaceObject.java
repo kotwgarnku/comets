@@ -1,5 +1,7 @@
 package comets;
 
+import javafx.geometry.Point3D;
+
 public class SpaceObject {
 	private String name;
 	private Point3D position;
@@ -23,6 +25,10 @@ public class SpaceObject {
 
 	public void setPosition(Point3D point) {
 		position = point;
+	}
+
+	public void updatePosition(Point3D point) {
+		position = position.add(point);
 	}
 
 	public Point3D getPosition() {
