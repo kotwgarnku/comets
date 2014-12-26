@@ -5,18 +5,28 @@ import javafx.geometry.Point3D;
 public class SpaceObject {
 	private String name;
 	private Point3D position;
+	private Point3D velocity;
 	private double mass;
 	private double radius;
-
-	public SpaceObject(String name, Point3D position, double mass, double radius) {
+	//object
+	public SpaceObject(String name, Point3D position, Point3D velocity, double mass, double radius) {
 		this.name = name;
 		this.position = position;
+		this.velocity = velocity;
 		this.mass = mass;
 		this.radius = radius;
 	}
-
+	//object at rest
+	public SpaceObject(String name, Point3D position, double mass, double radius) {
+		this(name, position, new Point3D(0,0,0), mass, radius);
+	}
+	//material point (radius = 0)
+	public SpaceObject(String name, Point3D position, Point3D velocity, double mass) {
+		this(name, position, velocity, mass, 0);
+	}
+	//material point at rest
 	public SpaceObject(String name, Point3D position, double mass) {
-		this(name, position, mass, 0);
+		this(name, position, new Point3D(0,0,0), mass, 0);
 	}
 
 	public String getName() {
@@ -34,6 +44,12 @@ public class SpaceObject {
 	public Point3D getPosition() {
 		return position;
 	}
+
+	public void setVelocity(Point3D velocity) { this.velocity = velocity; }
+
+	public void updateVelocity(Point3D dvelocity) { this.velocity = this.velocity.add(dvelocity); }
+
+	public Point3D getVelocity() { return velocity; }
 
 	public double getMass() {
 		return mass;
