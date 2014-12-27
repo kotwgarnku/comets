@@ -12,27 +12,29 @@ public class Update {
 
     private class VelocityFunction implements VectorEquation {
 
+        Force gravitationalForce = new Gravity();
+
         public Point3D f(double x, Point3D y) {
-            Point3D outcome = new Point3D(0,0,0);
-            for(int i = 0; i < spaceObjects.size(); i++) {
-                outcome = outcome.add(Gravity.determineForceVector(kometa, spaceObjects.get(i)));
-            }
+            Point3D outcome = Point3D.ZERO;
+            for(SpaceObject object : spaceObjects)
+                outcome = outcome.add(gravitationalForce.calculateAcceleration(kometa, object));
             //System.out.println("Force: " +outcome.multiply(Gravity.GRAVITATIONAL_CONSTANT*kometa.getMass()));
-            return outcome.multiply(Gravity.GRAVITATIONAL_CONSTANT);
+            return outcome;
         }
     }
     public void calculateVelocity() {
         VelocityFunction velFunction = new VelocityFunction();
         //v0
-        Point3D v = new Point3D(0,0,0);
+        Point3D v = Point3D.ZERO;
 
         double dt = 0.5;
         for (double t = 0; t < 10; t += dt) {
             v = RungeKutta4Vector.evaluate(t, v, dt, velFunction);
-            System.out.println("v: " + v.toString());
-            //System.out.println("dx: " + v.multiply(t));
-            kometa.updatePosition(v.multiply(t));
-            System.out.println("pos: " + kometa.getPosition().toString());
+            System.out.println("v: " + v);
+            Point3D changeInPosition = v.multiply(dt);
+            //System.out.println("dx: " + changeInPosition);
+            kometa.updatePosition(changeInPosition);
+            System.out.println("pos: " + kometa.getPosition());
         }
     }
 }
