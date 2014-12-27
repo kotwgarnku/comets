@@ -33,10 +33,6 @@ public class SpaceObject {
 		return name;
 	}
 
-	public void setPosition(Point3D point) {
-		position = point;
-	}
-
 	public void updatePosition(Point3D positionChange) {
 		position = position.add(positionChange);
 	}
