@@ -10,6 +10,6 @@ public class RungeKutta4Vector {
         Point3D k3 = derivative.f(x + dx * 0.5, y.add(k2.multiply(0.5))).multiply(dx);
         Point3D k4 = derivative.f(x + dx, y.add(k3)).multiply(dx);
 
-        return y.add((k1.add(k2.multiply(2).add(k3.multiply(2)).add(k4)).multiply(1/6.0)));
+        return k1.add(k2.multiply(2)).add(k3.multiply(2)).add(k4).multiply(1/6.0).add(y);
     }
 }
