@@ -7,15 +7,11 @@ public class Gravity implements Force {
     public static final double GRAVITATIONAL_CONSTANT = 6.67384e-11;
 
     @Override
-    public Point3D calculateAcceleration(SpaceObject movingObject, SpaceObject standingObject) {
-        Point3D differenceVector = standingObject.getPosition().subtract(movingObject.getPosition());
-        // TODO: change the code to be more 'vector friendly' (only if it won't make the code less clear)
-        double x = differenceVector.getX();
-        double y = differenceVector.getY();
-        double z = differenceVector.getZ();
-        x = x != 0 ? Math.signum(x) / (x*x) : 0;
-        y = y != 0 ? Math.signum(y) / (y*y) : 0;
-        z = z != 0 ? Math.signum(z) / (z*z) : 0;
-        return (new Point3D(x, y, z)).multiply(GRAVITATIONAL_CONSTANT * standingObject.getMass());
+    public Point3D calculateAcceleration(SpaceObject thisObject, SpaceObject otherObject) {
+        if (thisObject.getPosition() == otherObject.getPosition())
+            return Point3D.ZERO;
+        Point3D accelerationVector = otherObject.getPosition().subtract(thisObject.getPosition());
+        double distance = accelerationVector.magnitude();
+        return accelerationVector.multiply(otherObject.getMass()/Math.pow(distance, 3));
     }
 }
