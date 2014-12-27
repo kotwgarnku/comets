@@ -2,14 +2,17 @@ package comets;
 
 import javafx.geometry.Point3D;
 
-public class Gravity {
+public class Gravity implements Force {
 
     public static final double GRAVITATIONAL_CONSTANT = 6.67384e-11;
 
-    public static Point3D determineForceVector(SpaceObject a, SpaceObject b) {
-
-        double distance = a.getPosition().distance(b.getPosition());
-        Point3D ForceVector = b.getPosition().subtract(a.getPosition());
-        return ForceVector.multiply(b.getMass()/Math.pow(distance, 3));
+    @Override
+    public Point3D calculateAcceleration(SpaceObject movingObject, SpaceObject standingObject) {
+        Point3D differenceVector = standingObject.getPosition().subtract(movingObject.getPosition());
+        double x = differenceVector.getX();
+        double y = differenceVector.getY();
+        double z = differenceVector.getZ();
+        Point3D acceleration = new Point3D(Math.signum(x) / (x*x), Math.signum(y) / (y*y), Math.signum(z) / (z*z));
+        return acceleration.multiply(GRAVITATIONAL_CONSTANT * standingObject.getMass());
     }
 }
