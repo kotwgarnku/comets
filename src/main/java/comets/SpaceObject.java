@@ -8,25 +8,18 @@ public class SpaceObject {
 	private Point3D velocity;
 	private double mass;
 	private double radius;
-	//object
-	public SpaceObject(String name, Point3D position, Point3D velocity, double mass, double radius) {
+
+	public SpaceObject(String name, Point3D position, double mass, double radius) {
 		this.name = name;
 		this.position = position;
-		this.velocity = velocity;
+		this.velocity = Point3D.ZERO;
 		this.mass = mass;
 		this.radius = radius;
 	}
-	//object at rest
-	public SpaceObject(String name, Point3D position, double mass, double radius) {
-		this(name, position, new Point3D(0,0,0), mass, radius);
-	}
-	//material point (radius = 0)
-	public SpaceObject(String name, Point3D position, Point3D velocity, double mass) {
-		this(name, position, velocity, mass, 0);
-	}
-	//material point at rest
+
+	// Point particle
 	public SpaceObject(String name, Point3D position, double mass) {
-		this(name, position, new Point3D(0,0,0), mass, 0);
+		this(name, position, mass, 0);
 	}
 
 	public String getName() {
