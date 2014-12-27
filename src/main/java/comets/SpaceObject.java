@@ -37,19 +37,25 @@ public class SpaceObject {
 		position = point;
 	}
 
-	public void updatePosition(Point3D point) {
-		position = position.add(point);
+	public void updatePosition(Point3D positionChange) {
+		position = position.add(positionChange);
 	}
 
 	public Point3D getPosition() {
 		return position;
 	}
 
-	public void setVelocity(Point3D velocity) { this.velocity = velocity; }
+	public void setVelocity(Point3D newVelocity) {
+		velocity = newVelocity;
+	}
 
-	public void updateVelocity(Point3D dvelocity) { this.velocity = this.velocity.add(dvelocity); }
+	public void updateVelocity(Point3D velocityChange) {
+		velocity = velocity.add(velocityChange);
+	}
 
-	public Point3D getVelocity() { return velocity; }
+	public Point3D getVelocity() {
+		return velocity;
+	}
 
 	public double getMass() {
 		return mass;
