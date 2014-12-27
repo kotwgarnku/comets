@@ -2,14 +2,24 @@ package comets;
 
 import javafx.geometry.Point3D;
 
-// derivative of y with respect to x (in three-dimensional coordinate system)
 public class RungeKutta4Vector {
-    public static Point3D evaluate(double x, Point3D y, double dx, VectorEquation derivative) {
-        Point3D k1 = derivative.f(x, y).multiply(dx);
-        Point3D k2 = derivative.f(x + dx * 0.5, y.add(k1.multiply(0.5))).multiply(dx);
-        Point3D k3 = derivative.f(x + dx * 0.5, y.add(k2.multiply(0.5))).multiply(dx);
-        Point3D k4 = derivative.f(x + dx, y.add(k3)).multiply(dx);
+    public static void evaluate(SpaceObject thisObject, double dt, VectorEquation derivative) {
+        Point3D thisObjectPos = thisObject.getPosition();
+        Point3D thisObjectVelocity = thisObject.getVelocity();
+        
+        Point3D acceleration_k1 = derivative.f(thisObjectPos);
+        Point3D velocity_k1 = thisObjectVelocity;
 
-        return k1.add(k2.multiply(2)).add(k3.multiply(2)).add(k4).multiply(1/6.0).add(y);
+        Point3D acceleration_k2 = derivative.f(thisObjectPos.add(velocity_k1.multiply(dt / 2)));
+        Point3D velocity_k2 = thisObjectVelocity.add(acceleration_k1.multiply(dt/2));
+
+        Point3D acceleration_k3 = derivative.f(thisObjectPos.add(velocity_k2.multiply(dt / 2)));
+        Point3D velocity_k3 = thisObjectVelocity.add(acceleration_k2.multiply(dt / 2));
+
+        Point3D acceleration_k4 = derivative.f(thisObjectPos.add(velocity_k3.multiply(dt)));
+        Point3D velocity_k4 = thisObjectVelocity.add(acceleration_k3.multiply(dt));
+        
+        thisObject.updatePosition((velocity_k1.add(velocity_k2.multiply(2)).add(velocity_k3.multiply(2)).add(velocity_k4)).multiply(dt / 6));
+        thisObject.updateVelocity((acceleration_k1.add(acceleration_k2.multiply(2)).add(acceleration_k3.multiply(2)).add(acceleration_k4)).multiply(dt/6));
     }
 }
