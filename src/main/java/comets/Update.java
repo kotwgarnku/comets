@@ -6,7 +6,8 @@ import java.util.Arrays;
 
 public class Update {
     SpaceObject planeta = new SpaceObject("planeta", new Point3D(0,0,0), 5.9736e24);
-    ArrayList<SpaceObject> spaceObjects = new ArrayList(Arrays.asList(planeta));
+    SpaceObject planeta2 = new SpaceObject("planeta2", new Point3D(0,300000,0), 5.9736e24);
+    ArrayList<SpaceObject> spaceObjects = new ArrayList(Arrays.asList(planeta, planeta2));
 
     private class VelocityFunction implements VectorEquation {
         Force gravityForce = new Gravity();
@@ -19,14 +20,14 @@ public class Update {
             return outcome.multiply(Gravity.GRAVITATIONAL_CONSTANT);
         }
     }
-    public void calculateVelocity(SpaceObject movingObject) {
+    public void calculateVelocity(SpaceObject movingObject, double dtime, double time) {
         VelocityFunction velFunction = new VelocityFunction();
 
-        double dt = 1;
-        for (double t = 0; t < 400; t += dt) {
+        for (double t = 0; t < time; t += dtime) {
+            System.out.println("t: " + t);
             System.out.println("v: " + movingObject.getVelocity());
-            System.out.println("pos: " + movingObject.getPosition());
-            RungeKutta4Vector.evaluate(movingObject, dt, velFunction);
+//            System.out.println(movingObject.getPosition().getX() + "\t" + movingObject.getPosition().getY());
+            RungeKutta4Vector.evaluate(movingObject, dtime, velFunction);
         }
     }
 }
