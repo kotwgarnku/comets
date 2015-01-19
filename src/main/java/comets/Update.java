@@ -1,13 +1,15 @@
 package comets;
 
 import javafx.geometry.Point3D;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Update {
-    SpaceObject planeta = new SpaceObject("planeta", new Point3D(0,0,0), 5.9736e24);
-    SpaceObject planeta2 = new SpaceObject("planeta2", new Point3D(0,300000,0), 5.9736e24);
-    ArrayList<SpaceObject> spaceObjects = new ArrayList(Arrays.asList(planeta, planeta2));
+//    SpaceObject planeta = new SpaceObject("planeta", new Point3D(0,0,0), 5.9736e24);
+//    SpaceObject planeta2 = new SpaceObject("planeta2", new Point3D(0,300000,0), 5.9736e24);
+//    ArrayList<SpaceObject> spaceObjects = new ArrayList(Arrays.asList(planeta, planeta2));
+    ArrayList<SpaceObject> spaceObjects = DataManip.parse("planets.txt");
 
     private class VelocityFunction implements VectorEquation {
         Force gravityForce = new Gravity();

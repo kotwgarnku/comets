@@ -6,7 +6,7 @@ public class RungeKutta4Vector {
     public static void evaluate(SpaceObject thisObject, double dt, VectorEquation derivative) {
         Point3D thisObjectPos = thisObject.getPosition();
         Point3D thisObjectVelocity = thisObject.getVelocity();
-        
+
         Point3D acceleration_k1 = derivative.f(thisObjectPos);
         Point3D velocity_k1 = thisObjectVelocity;
 
