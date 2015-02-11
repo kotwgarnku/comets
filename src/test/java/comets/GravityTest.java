@@ -1,27 +1,62 @@
 package comets;
 
 import javafx.geometry.Point3D;
-
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
+@RunWith(JUnitParamsRunner.class)
 public class GravityTest {
 
-    public static final double GRAVITATIONAL_CONSTANT = 6.67384e-11;
+    public static final double MAX_GRAVITY_RANGE = 5e15;
+    public Gravity gravitationalForce;
+
+    @Before
+    public void setUp() throws Exception {
+        gravitationalForce = new Gravity();
+    }
 
     @Test
-    public void calculatesCorrectAcceleration() throws Exception {
-        SpaceObject movingObject = new SpaceObject("moving object", new Point3D(1, 19, 10), 456);
-        SpaceObject standingObject = new SpaceObject("standing object", new Point3D(11, 7, 32), 100);
-        Force gravitationalForce = new Gravity();
+    @Parameters({"-10, 0, 0, 1, 0, 0, 0",
+                 "-10, -10, -10, 0.19245, 0.19245, 0.19245, 1E-5"})
+    public void calculatesCorrectAcceleration(double x, double y, double z, double rx, double ry, double rz, double withinValue) throws Exception {
+        Point3D objectActingForce = new Point3D(0, 0, 0);
+        Point3D objectActedByForce = new Point3D(x, y, z);
+        double massOfObjectActingForce = 100;
 
-        Point3D actualAcceleration = gravitationalForce.calculateAcceleration(movingObject, standingObject);
-        Point3D expectedAcceleration = new Point3D(1, -25/36f, 25/121f).multiply(GRAVITATIONAL_CONSTANT);
+        Point3D actualAcceleration = gravitationalForce.calculateAcceleration(objectActedByForce, objectActingForce, massOfObjectActingForce);
+        Point3D expectedAcceleration = new Point3D(rx, ry, rz);
 
-        // TODO: extend JUNIT to support assertions for Point3D
-        assertThat(actualAcceleration.getX()).isCloseTo(expectedAcceleration.getX(), within(1E-17));
-        assertThat(actualAcceleration.getY()).isCloseTo(expectedAcceleration.getY(), within(1E-17));
-        assertThat(actualAcceleration.getZ()).isCloseTo(expectedAcceleration.getZ(), within(1E-17));
+        // TODO: isCloseTo for Point3D
+        assertThat(actualAcceleration.getX()).isCloseTo(expectedAcceleration.getX(), within(withinValue));
+        assertThat(actualAcceleration.getY()).isCloseTo(expectedAcceleration.getY(), within(withinValue));
+        assertThat(actualAcceleration.getZ()).isCloseTo(expectedAcceleration.getZ(), within(withinValue));
+    }
+
+    @Test
+    public void returnsZeroAccelerationForSamePoints() throws Exception {
+        Point3D point1 = new Point3D(892.23, -785.2, 184);
+        Point3D point2 = new Point3D(892.23, -785.2, 184);
+
+        Point3D actualAcceleration = gravitationalForce.calculateAcceleration(point1, point2, 100);
+        Point3D expectedAcceleration = Point3D.ZERO;
+
+        assertThat(actualAcceleration).isEqualTo(expectedAcceleration);
+    }
+
+    @Test
+    public void returnsZeroAccelerationForDistantPoints() throws Exception {
+        Point3D point1 = Point3D.ZERO;
+        Point3D point2 = new Point3D(MAX_GRAVITY_RANGE+1, 0, 0);
+
+        Point3D actualAcceleration = gravitationalForce.calculateAcceleration(point1, point2, 100);
+        Point3D expectedAcceleration = Point3D.ZERO;
+
+        assertThat(actualAcceleration).isEqualTo(expectedAcceleration);
     }
 }

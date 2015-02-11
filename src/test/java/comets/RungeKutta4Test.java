@@ -1,13 +1,22 @@
 package comets;
 
+import javafx.geometry.Point3D;
+import org.junit.Before;
 import org.junit.Test;
 
-import static java.lang.Math.exp;
-import static java.lang.Math.sqrt;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
 
 public class RungeKutta4Test {
+
+    public static final Point3D POSITION = new Point3D(-1.2, 32.1, 756.42);
+    public static final Point3D VELOCITY = new Point3D(18, -6.8, -20);
+    public static final Point3D ACCELERATION = new Point3D(1, 0, 0);
+    public static final int DT = 5;
+    private Equation zero;
+    private RungeKutta4 rk4zero;
+    private Equation constant;
+    private RungeKutta4 rk4const;
+    /*
     private class ExpFunction implements Equation {
 
         @Override
@@ -19,10 +28,10 @@ public class RungeKutta4Test {
     @Test
     public void calculatesCorrectResultForExpFunction() throws Exception {
         double y = 1; // exp(0)
-        double dx = 0.005;
+        double dxdt = 0.005;
         ExpFunction expFunction = new ExpFunction();
-        for (double x = 0; x < 1; x += dx)
-            y = RungeKutta4.evaluate(x, y, dx, expFunction);
+        for (double x = 0; x < 1; x += dxdt)
+            y = RungeKutta4.evaluateOld(x, y, dxdt, expFunction);
 
         assertThat(y).isCloseTo(exp(1), within(1E-10));
     }
@@ -39,11 +48,71 @@ public class RungeKutta4Test {
     @Test
     public void calculatesCorrectResultForRosettaFunction() throws Exception {
         double y = 1;
-        double dx = 0.005;
+        double dxdt = 0.005;
         RosettaFunction rosFunction = new RosettaFunction();
-        for (double x = 0; x < 1; x += dx)
-            y = RungeKutta4.evaluate(x, y, dx, rosFunction);
+        for (double x = 0; x < 1; x += dxdt)
+            y = RungeKutta4.evaluateOld(x, y, dxdt, rosFunction);
 
         assertThat(y).isCloseTo((25/16f), within(1E-10));
+    }
+    */
+
+    private class ZeroFunction implements Equation {
+
+        @Override
+        public Point3D f(State state, double t) {
+            return Point3D.ZERO;
+        }
+    }
+
+    private class ConstantFunction implements Equation {
+
+        @Override
+        public Point3D f(State state, double t) {
+            return ACCELERATION;
+        }
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        zero = new ZeroFunction();
+        rk4zero = new RungeKutta4(zero);
+        constant = new ConstantFunction();
+        rk4const = new RungeKutta4(constant);
+    }
+
+    @Test
+    public void integratesCorrectlyForZeroVelocityAndAcceleration() throws Exception {
+        State state = new State(POSITION);
+
+        rk4zero.evaluate(state, DT, DT);
+
+        assertThat(state.getPosition()).isEqualTo(POSITION);
+        assertThat(state.getVelocity()).isEqualTo(Point3D.ZERO);
+    }
+
+    @Test
+    public void integratesCorrectlyForZeroAcceleration() throws Exception {
+        State state = new State(POSITION, VELOCITY);
+
+        rk4zero.evaluate(state, DT, DT);
+        Point3D expectedPosition = POSITION.add(VELOCITY.multiply(DT));
+
+        assertThat(state.getPosition()).isEqualTo(expectedPosition);
+        assertThat(state.getVelocity()).isEqualTo(VELOCITY);
+    }
+
+    @Test
+    public void integratesCorrectlyForConstantAcceleration() throws Exception {
+        State state = new State(POSITION, VELOCITY);
+
+        rk4const.evaluate(state, DT, DT);
+        // v = v_0 + a * dt
+        Point3D expectedVelocity = VELOCITY.add(ACCELERATION.multiply(DT));
+        // x = x_0 + v_0 * dt + a * dt * dt / 2
+        Point3D expectedPosition = POSITION.add(VELOCITY.multiply(DT)).add(ACCELERATION.multiply(DT*DT/2f));
+
+        assertThat(state.getPosition()).isEqualTo(expectedPosition);
+        assertThat(state.getVelocity()).isEqualTo(expectedVelocity);
     }
 }

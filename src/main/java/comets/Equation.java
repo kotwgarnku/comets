@@ -1,5 +1,7 @@
 package comets;
 
+import javafx.geometry.Point3D;
+
 public interface Equation {
-    public double f(double x, double y);
+    public Point3D f(State state, double t);
 }

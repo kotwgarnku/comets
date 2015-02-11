@@ -2,17 +2,14 @@ package comets;
 
 import javafx.geometry.Point3D;
 
-public class SpaceObject {
+public class SpaceObject extends State {
 	private String name;
-	private Point3D position;
-	private Point3D velocity;
 	private double mass;
 	private double radius;
 
 	public SpaceObject(String name, Point3D position, double mass, double radius) {
+		super(position, Point3D.ZERO);
 		this.name = name;
-		this.position = position;
-		this.velocity = Point3D.ZERO;
 		this.mass = mass;
 		this.radius = radius;
 	}
@@ -24,26 +21,6 @@ public class SpaceObject {
 
 	public String getName() {
 		return name;
-	}
-
-	public void updatePosition(Point3D positionChange) {
-		position = position.add(positionChange);
-	}
-
-	public Point3D getPosition() {
-		return position;
-	}
-
-	public void setVelocity(Point3D newVelocity) {
-		velocity = newVelocity;
-	}
-
-	public void updateVelocity(Point3D velocityChange) {
-		velocity = velocity.add(velocityChange);
-	}
-
-	public Point3D getVelocity() {
-		return velocity;
 	}
 
 	public double getMass() {
