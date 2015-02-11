@@ -7,8 +7,8 @@ public class UpdateTest {
 
     @Test
     public void calculatesCorrectResultForForce() throws Exception {
-        SpaceObject kometa = new SpaceObject("comet", new Point3D(1,19,10), 456);
+        SpaceObject comet = new SpaceObject("comet", new Point3D(0,3.84e8,0), 7.349e22);
         Update update = new Update();
-        update.calculateVelocity();
+        update.calculateVelocity(comet, 100, 10000);
     }
 }
