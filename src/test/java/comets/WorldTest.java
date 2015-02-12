@@ -1,7 +1,10 @@
 package comets;
 
+import javafx.geometry.Point3D;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,28 +20,27 @@ public class WorldTest {
     public static final double MASS_2 = 12390.3;
     public static final double RADIUS_2 = 492.1;
 
-    private SpaceObject spaceObject;
-    private SpaceObject spaceObject2;
+    public static final SpaceObject spaceObject = new SpaceObject(NAME_OF_SPACE_OBJECT, POSITION, MASS, RADIUS);
+    public static final SpaceObject spaceObject2 = new SpaceObject(NAME_OF_SPACE_OBJECT_2, POSITION_2, MASS_2, RADIUS_2);
 
     private ArrayList<SpaceObject> spaceObjectList;
     private World world;
 
     @Before
     public void setUp() throws Exception {
-        spaceObject = new SpaceObject(NAME_OF_SPACE_OBJECT, POSITION, MASS, RADIUS);
-        spaceObject2 = new SpaceObject(NAME_OF_SPACE_OBJECT_2, POSITION_2, MASS_2, RADIUS_2);
+        spaceObjectList = new ArrayList<SpaceObject>();
         spaceObjectList.add(spaceObject);
         world = new World(spaceObjectList);
     }
 
     @Test
     public void returnsCorrectList() throws Exception {
-        assertThat(spaceObjectList).isEqualTo(world.getSpaceObjects());
+        assertThat(world.getSpaceObjects()).isEqualTo(spaceObjectList);
     }
 
     @Test
     public void addsElement() throws Exception {
         world.addSpaceObject(spaceObject2);
-        assertThat(world.getSpaceObjects()[world.getSpaceObjects().length-1]).isEqualTo(spaceObject2);
+        assertThat(world.getSpaceObjects().get(world.getSpaceObjects().size()-1)).isEqualTo(spaceObject2);
     }
 }
