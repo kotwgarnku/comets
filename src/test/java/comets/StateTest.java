@@ -12,6 +12,7 @@ public class StateTest {
     public static final Point3D POSITION2 = new Point3D(6.2, -23.1, 2.32);
     public static final Point3D VELOCITY = new Point3D(9.9, 12.34, -23.6);
     public static final Point3D VELOCITY2 = new Point3D(3.1, -94.5, 0.08);
+    public static final Point3D FORCE = new Point3D(231.23, -421.2, -32.2312);
     private State state;
 
     @Before
@@ -100,5 +101,19 @@ public class StateTest {
         Point3D previousVelocity = state.getPreviousVelocity();
 
         assertThat(previousVelocity).isEqualTo(Point3D.ZERO);
+    }
+
+    @Test
+    public void setForce() throws Exception {
+        state.setForce(FORCE);
+
+        assertThat(state.getForce()).isEqualTo(FORCE);
+    }
+
+    @Test
+    public void returnsZeroForceAtStart() throws Exception {
+        Point3D force = state.getForce();
+
+        assertThat(force).isEqualTo(Point3D.ZERO);
     }
 }
