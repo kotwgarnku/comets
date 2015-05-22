@@ -27,13 +27,16 @@ public class Update {
     public void calculateVelocity(SpaceObject movingObject, double dtime, double time) {
         VelocityFunction velFunction = new VelocityFunction();
         RungeKutta4 rk4 = new RungeKutta4(velFunction);
+        double energy;
 
         for (double t = 0; t < time; t += dtime) {
             rk4.evaluate(movingObject, t, dtime);
             Point3D pos = movingObject.getPosition();
             Point3D vel = movingObject.getPosition();
+            energy = Energy.calculateEnergy(spaceObjects);
             System.out.println("t: " + t);
             System.out.println("v: " + movingObject.getVelocity());
+            System.out.println("energy: " + energy);
         }
     }
 }

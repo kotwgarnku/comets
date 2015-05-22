@@ -26,6 +26,7 @@ public class State {
     }
 
     public void setPosition(Point3D newPosition) {
+        previousPosition = position;
         position = newPosition;
     }
 
@@ -37,15 +38,12 @@ public class State {
         return position;
     }
 
-    public void setPreviousPosition(Point3D newPreviousPosition) {
-        previousPosition = newPreviousPosition;
-    }
-
     public Point3D getPreviousPosition() {
         return previousPosition;
     }
 
     public void setVelocity(Point3D newVelocity) {
+        previousVelocity = velocity;
         velocity = newVelocity;
     }
 
@@ -55,10 +53,6 @@ public class State {
 
     public Point3D getVelocity() {
         return velocity;
-    }
-
-    public void setPreviousVelocity(Point3D newPreviousVelocity) {
-        previousVelocity = newPreviousVelocity;
     }
 
     public Point3D getPreviousVelocity() {

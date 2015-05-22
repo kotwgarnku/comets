@@ -55,7 +55,6 @@ public class StateTest {
 
     @Test
     public void setsPreviousPosition() throws Exception {
-        state.setPreviousPosition(POSITION2);
 
         assertThat(state.getPreviousPosition()).isEqualTo(POSITION2);
     }
@@ -91,7 +90,6 @@ public class StateTest {
 
     @Test
     public void setsPreviousVelocity() throws Exception {
-        state.setPreviousVelocity(VELOCITY2);
 
         assertThat(state.getPreviousVelocity()).isEqualTo(VELOCITY2);
     }
