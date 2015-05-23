@@ -30,4 +30,8 @@ public class SpaceObject extends State {
 	public double getRadius() {
 		return radius;
 	}
+
+	public String toString() {
+		return String.format("SpaceObject [name='%s', position=(%s), velocity=(%s), mass=%s, radius=%s]", name, getPosition(), getVelocity(), mass, radius);
+	}
 }
