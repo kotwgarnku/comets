@@ -8,7 +8,7 @@ public class SpaceObject extends State {
 	private double radius;
 
 	public SpaceObject(String name, Point3D position, double mass, double radius) {
-		super(position, Point3D.ZERO);
+		super(position);
 		this.name = name;
 		this.mass = mass;
 		this.radius = radius;
