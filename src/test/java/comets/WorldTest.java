@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 public class WorldTest {
 
@@ -45,5 +46,14 @@ public class WorldTest {
     public void addsElement() throws Exception {
         world.addSpaceObject(spaceObject2);
         assertThat(world.getSpaceObjects().get(world.getSpaceObjects().size()-1)).isEqualTo(spaceObject2);
+    }
+
+    @Test
+    public void calculatesEnergyCorrectly() throws Exception {
+        world.addSpaceObject(spaceObject);
+        world.addSpaceObject(spaceObject2);
+        double energy = world.getEnergy();
+
+        assertThat(energy).isCloseTo(403053.7058, within(0.0001));
     }
 }
