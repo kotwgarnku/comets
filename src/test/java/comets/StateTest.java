@@ -54,12 +54,6 @@ public class StateTest {
     }
 
     @Test
-    public void setsPreviousPosition() throws Exception {
-
-        assertThat(state.getPreviousPosition()).isEqualTo(POSITION2);
-    }
-
-    @Test
     public void returnsZeroPreviousPositionAtStart() throws Exception {
         Point3D previousPosition = state.getPreviousPosition();
 
@@ -86,12 +80,6 @@ public class StateTest {
         Point3D velocity = state.getVelocity();
 
         assertThat(velocity).isEqualTo(VELOCITY);
-    }
-
-    @Test
-    public void setsPreviousVelocity() throws Exception {
-
-        assertThat(state.getPreviousVelocity()).isEqualTo(VELOCITY2);
     }
 
     @Test
