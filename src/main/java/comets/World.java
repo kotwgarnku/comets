@@ -1,15 +1,12 @@
 package comets;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class World {
-    private ArrayList<SpaceObject> spaceObjects = new ArrayList<>();
+    private List<SpaceObject> spaceObjects = new ArrayList<>();
 
-    public World(ArrayList<SpaceObject> spaceObjects) {
-        this.spaceObjects = spaceObjects;
-    }
-
-    public ArrayList<SpaceObject> getSpaceObjects() {
+    public List<SpaceObject> getSpaceObjects() {
         return spaceObjects;
     }
 
