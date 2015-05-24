@@ -18,14 +18,11 @@ public class World {
         double kineticEnergy = 0;
         double potentialEnergy = 0;
 
-        for (SpaceObject object : spaceObjects) {
-            kineticEnergy += getKineticEnergy(object);
+        for (int i = 0; i < spaceObjects.size(); i++) {
+            kineticEnergy += getKineticEnergy(spaceObjects.get(i));
 
-            List<SpaceObject> spaceObjectsWithoutExamined = new ArrayList<>(spaceObjects);
-            spaceObjectsWithoutExamined.remove(object);
-
-            for (SpaceObject anotherObject : spaceObjectsWithoutExamined) {
-                potentialEnergy -= getPotentialEnergy(object, anotherObject);
+            for (int j = i+1; j < spaceObjects.size(); j++) {
+                potentialEnergy -= getPotentialEnergy(spaceObjects.get(i), spaceObjects.get(j));
             }
         }
         potentialEnergy *= Gravity.GRAVITATIONAL_CONSTANT;
