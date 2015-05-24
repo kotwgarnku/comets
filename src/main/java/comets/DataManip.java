@@ -5,13 +5,12 @@ import javafx.geometry.Point3D;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class DataManip {
-    public static ArrayList<SpaceObject> parse(String fileName) {
-        ArrayList<SpaceObject> spaceObjects = new ArrayList<>();
+    public static List<SpaceObject> parse(String fileName) {
+        List<SpaceObject> spaceObjects = new ArrayList<>();
 
         try (Stream<String> input = Files.lines(Paths.get(fileName))) {
             input.forEach(line -> {
@@ -28,21 +27,22 @@ public class DataManip {
 
     private static Optional<SpaceObject> parseLine(String line) {
         SpaceObject spaceObject = null;
+        Dictionary<String, Double> params = null;
+        List<String> keys = Arrays.asList("posX", "posY", "posZ", "velX", "velY", "velZ", "mass", "radius");
+        Point3D position, velocity;
         // TODO: handle wrong input
         if (!line.startsWith("#")) {
             String[] args = line.split("\\s+");
             String name = args[0];
-            double posX = Double.parseDouble(args[1]);
-            double posY = Double.parseDouble(args[2]);
-            double posZ = Double.parseDouble(args[3]);
-            double velX = Double.parseDouble(args[4]);
-            double velY = Double.parseDouble(args[5]);
-            double velZ = Double.parseDouble(args[6]);
-            double mass = Double.parseDouble(args[7]);
-            double radius = Double.parseDouble(args[8]);
-
-            spaceObject = new SpaceObject(name, new Point3D(posX, posY, posZ), mass, radius);
-            spaceObject.setVelocity(new Point3D(velX, velY, velZ));
+            int i = 1;
+            for(String key : keys) {
+                params.put(key, Double.parseDouble(args[i]));
+                i++;
+            }
+            position = new Point3D(params.get("posX"), params.get("posY"), params.get("posZ"));
+            velocity = new Point3D(params.get("velX"), params.get("velY"), params.get("velZ"));
+            spaceObject = new SpaceObject(name, position, params.get("mass"), params.get("radius"));
+            spaceObject.setVelocity(velocity);
         }
 
         return Optional.ofNullable(spaceObject);
