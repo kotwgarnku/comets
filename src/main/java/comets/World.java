@@ -22,7 +22,7 @@ public class World {
             kineticEnergy += getKineticEnergy(spaceObjects.get(i));
 
             for (int j = i+1; j < spaceObjects.size(); j++) {
-                potentialEnergy -= getPotentialEnergy(spaceObjects.get(i), spaceObjects.get(j));
+                potentialEnergy += getPotentialEnergy(spaceObjects.get(i), spaceObjects.get(j));
             }
         }
         potentialEnergy *= Gravity.GRAVITATIONAL_CONSTANT;
@@ -35,6 +35,6 @@ public class World {
     }
 
     private double getPotentialEnergy(SpaceObject firstObject, SpaceObject secondObject) {
-        return firstObject.getMass() * secondObject.getMass() / firstObject.getPosition().distance(secondObject.getPosition());
+        return -firstObject.getMass() * secondObject.getMass() / firstObject.getPosition().distance(secondObject.getPosition());
     }
 }
