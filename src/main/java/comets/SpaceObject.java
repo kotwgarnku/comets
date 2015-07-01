@@ -4,7 +4,7 @@ import javafx.geometry.Point3D;
 
 public class SpaceObject extends State {
 	private String name;
-	private double mass;
+	private double mass; //1 unit = 1e23 kg
 	private double radius;
 
 	public SpaceObject(String name, Point3D position, double mass, double radius) {
