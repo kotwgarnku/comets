@@ -1,5 +1,7 @@
 package comets;
 
+import javafx.geometry.Point3D;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,5 +38,31 @@ public class World {
 
     private double getPotentialEnergy(SpaceObject firstObject, SpaceObject secondObject) {
         return -firstObject.getMass() * secondObject.getMass() / firstObject.getPosition().distance(secondObject.getPosition());
+    }
+
+    public void calculateForces() {
+        int worldSize = getSpaceObjects().size();
+        //set every force acting on object to 0
+        for(int i = 0; i < worldSize; i++) {
+            SpaceObject object = getSpaceObjects().get(i);
+            object.setForce(Point3D.ZERO);
+        }
+        //set forces between objects (vectors)
+        for(int i = 0; i < worldSize; i++) {
+            for(int j = i+1; j < worldSize; j++) {
+                SpaceObject object = getSpaceObjects().get(i);
+                SpaceObject otherObject = getSpaceObjects().get(j);
+
+                Point3D force = Gravity.calculateForce(object, otherObject);
+
+                object.setForce(object.getForce().add(force));
+                otherObject.setForce(otherObject.getForce().subtract(force));
+            }
+        }
+        //multiply forces by gravitational constant
+        for(int i = 0; i < worldSize; i++) {
+            SpaceObject object = getSpaceObjects().get(i);
+            object.setForce(object.getForce().multiply(Gravity.GRAVITATIONAL_CONSTANT));
+        }
     }
 }
