@@ -43,10 +43,7 @@ public class World {
     public void calculateForces() {
         int worldSize = getSpaceObjects().size();
         //set every force acting on object to 0
-        for(int i = 0; i < worldSize; i++) {
-            SpaceObject object = getSpaceObjects().get(i);
-            object.setForce(Point3D.ZERO);
-        }
+        getSpaceObjects().forEach((object) -> object.setForce(Point3D.ZERO));
         //set forces between objects (vectors)
         for(int i = 0; i < worldSize; i++) {
             for(int j = i+1; j < worldSize; j++) {
