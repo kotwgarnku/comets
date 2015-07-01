@@ -24,7 +24,6 @@ public class Main {
 
             world.getSpaceObjects().forEach(System.out::println);
             step += TIME_STEP;
-            update();
         }
     }
 }
