@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static comets.Point3DAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
@@ -32,10 +33,7 @@ public class GravityTest {
         Point3D actualAcceleration = gravitationalForce.calculateAcceleration(objectActedByForce, objectActingForce, massOfObjectActingForce);
         Point3D expectedAcceleration = new Point3D(rx, ry, rz);
 
-        // TODO: isCloseTo for Point3D
-        assertThat(actualAcceleration.getX()).isCloseTo(expectedAcceleration.getX(), within(withinValue));
-        assertThat(actualAcceleration.getY()).isCloseTo(expectedAcceleration.getY(), within(withinValue));
-        assertThat(actualAcceleration.getZ()).isCloseTo(expectedAcceleration.getZ(), within(withinValue));
+        assertThat(actualAcceleration).isCloseTo(expectedAcceleration, within(withinValue));
     }
 
     @Test
