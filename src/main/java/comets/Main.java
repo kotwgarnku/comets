@@ -1,8 +1,8 @@
 package comets;
 
 public class Main {
-    public static final double TIME_STEP = 1; //seconds
-    public static final double EXPERIMENT_DURATION = 2*60*60*24; //days? years?
+    public static final double TIME_STEP = 1; //1 day
+    public static final double EXPERIMENT_DURATION = 365;
 
     private static double step = 0;
     public static World world;
@@ -19,8 +19,7 @@ public class Main {
     }
     private static void update() {
         while(step < EXPERIMENT_DURATION) {
-        //calculations here
-            //for every pair of objects calculate forces between them
+            world.calculateForces();
 
             world.getSpaceObjects().forEach(System.out::println);
             step += TIME_STEP;
