@@ -1,2 +1,2 @@
-#schema: <planet name> <posX> <posY> <posY> <velX> <velY> <velZ> <mass> <radius>
+#schema: <planet name> <posX> <posY> <posZ> <velX> <velY> <velZ> <mass> <radius>
 planeta1 0 0 0 0 0 0 5.9736e24 0
