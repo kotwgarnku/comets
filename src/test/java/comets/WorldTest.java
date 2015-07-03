@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,6 +47,15 @@ public class WorldTest {
     public void addsElement() throws Exception {
         world.addSpaceObject(spaceObject2);
         assertThat(world.getSpaceObjects().get(world.getSpaceObjects().size()-1)).isEqualTo(spaceObject2);
+    }
+
+    @Test
+    public void addsManyElements() throws Exception {
+        List<SpaceObject> addedObjects = Arrays.asList(spaceObject, spaceObject2);
+        world.addSpaceObjects(addedObjects);
+        List<SpaceObject> actualObjects = world.getSpaceObjects();
+
+        assertThat(actualObjects).isEqualTo(addedObjects);
     }
 
     @Test

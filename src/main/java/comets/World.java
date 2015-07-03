@@ -16,6 +16,9 @@ public class World {
         spaceObjects.add(someObject);
     }
 
+    public void addSpaceObjects(List<SpaceObject> spaceObjects) {
+        spaceObjects.forEach(this::addSpaceObject);
+    }
     public double getEnergy() {
         double kineticEnergy = 0;
         double potentialEnergy = 0;
