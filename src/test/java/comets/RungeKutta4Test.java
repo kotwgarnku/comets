@@ -12,9 +12,7 @@ public class RungeKutta4Test {
     public static final Point3D VELOCITY = new Point3D(18, -6.8, -20);
     public static final Point3D ACCELERATION = new Point3D(1, 0, 0);
     public static final int DT = 5;
-    private Equation zero;
     private RungeKutta4 rk4zero;
-    private Equation constant;
     private RungeKutta4 rk4const;
     /*
     private class ExpFunction implements Equation {
@@ -75,10 +73,8 @@ public class RungeKutta4Test {
 
     @Before
     public void setUp() throws Exception {
-        zero = new ZeroFunction();
-        rk4zero = new RungeKutta4(zero);
-        constant = new ConstantFunction();
-        rk4const = new RungeKutta4(constant);
+        rk4zero = new RungeKutta4(new ZeroFunction());
+        rk4const = new RungeKutta4(new ConstantFunction());
     }
 
     @Test
