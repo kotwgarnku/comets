@@ -28,8 +28,16 @@ public class RungeKutta4 implements MovementIntegrator {
         c = calculate(state, t, dt * 0.5, b);
         d = calculate(state, t, dt, c);
 
-        Point3D dx = a.dxdt.add(b.dxdt.multiply(2)).add(c.dxdt.multiply(2)).add(d.dxdt).multiply(dt/6);
-        Point3D dv = a.dvdt.add(b.dvdt.multiply(2)).add(c.dvdt.multiply(2)).add(d.dvdt).multiply(dt/6);
+        Point3D dx = a.dxdt
+                .add(b.dxdt.multiply(2))
+                .add(c.dxdt.multiply(2))
+                .add(d.dxdt)
+                .multiply(dt / 6);
+        Point3D dv = a.dvdt
+                .add(b.dvdt.multiply(2))
+                .add(c.dvdt.multiply(2))
+                .add(d.dvdt)
+                .multiply(dt/6);
 
         state.updatePosition(dx);
         state.updateVelocity(dv);
