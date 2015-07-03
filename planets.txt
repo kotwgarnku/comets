@@ -1,2 +1,5 @@
 #schema: <planet name> <posX> <posY> <posZ> <velX> <velY> <velZ> <mass> <radius>
-planeta1 0 0 0 0 0 0 5.9736e24 0
+planet1 0 0 0 30 20 15 5.9736e7 0
+planet2 100 100 100 -10 -20 5 5.2312e6 0
+planet3 -100 200 -50 25 -5 10 2.2312e7 0
+planet4 50 -50 30 -20 40 15 9.3431e6 0
