@@ -8,13 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static comets.Point3DAssert.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
 @RunWith(JUnitParamsRunner.class)
 public class GravityTest {
 
-    public static final double MAX_GRAVITY_RANGE = 5e15;
+    public static final double MAX_GRAVITY_RANGE = 5e26;
+    public static final int MASS = 100;
     public Gravity gravitationalForce;
 
     @Before
@@ -26,11 +26,10 @@ public class GravityTest {
     @Parameters({"-10, 0, 0, 1, 0, 0, 0",
                  "-10, -10, -10, 0.19245, 0.19245, 0.19245, 1E-5"})
     public void calculatesCorrectAcceleration(double x, double y, double z, double rx, double ry, double rz, double withinValue) throws Exception {
-        Point3D objectActingForce = new Point3D(0, 0, 0);
-        Point3D objectActedByForce = new Point3D(x, y, z);
-        double massOfObjectActingForce = 100;
+        SpaceObject objectActingForce = new SpaceObject("planet1", new Point3D(0, 0, 0), 100);
+        SpaceObject objectActedByForce = new SpaceObject("planet2", new Point3D(x, y, z), MASS);
 
-        Point3D actualAcceleration = gravitationalForce.calculateAcceleration(objectActedByForce, objectActingForce, massOfObjectActingForce);
+        Point3D actualAcceleration = gravitationalForce.calculateForce(objectActedByForce, objectActingForce);
         Point3D expectedAcceleration = new Point3D(rx, ry, rz);
 
         assertThat(actualAcceleration).isCloseTo(expectedAcceleration, within(withinValue));
@@ -38,10 +37,11 @@ public class GravityTest {
 
     @Test
     public void returnsZeroAccelerationForSamePoints() throws Exception {
-        Point3D point1 = new Point3D(892.23, -785.2, 184);
-        Point3D point2 = new Point3D(892.23, -785.2, 184);
+        Point3D point = new Point3D(892.23, -785.2, 184);
+        SpaceObject object1 = new SpaceObject("planet1", point, MASS);
+        SpaceObject object2 = new SpaceObject("planet2", point, MASS);
 
-        Point3D actualAcceleration = gravitationalForce.calculateAcceleration(point1, point2, 100);
+        Point3D actualAcceleration = gravitationalForce.calculateForce(object1, object2);
         Point3D expectedAcceleration = Point3D.ZERO;
 
         assertThat(actualAcceleration).isEqualTo(expectedAcceleration);
@@ -49,10 +49,11 @@ public class GravityTest {
 
     @Test
     public void returnsZeroAccelerationForDistantPoints() throws Exception {
-        Point3D point1 = Point3D.ZERO;
-        Point3D point2 = new Point3D(MAX_GRAVITY_RANGE+1, 0, 0);
+        SpaceObject object1 = new SpaceObject("planet1", Point3D.ZERO, MASS);
+        Point3D distantPoint = new Point3D(MAX_GRAVITY_RANGE, 0, 0);
+        SpaceObject object2 = new SpaceObject("planet2", distantPoint, MASS);
 
-        Point3D actualAcceleration = gravitationalForce.calculateAcceleration(point1, point2, 100);
+        Point3D actualAcceleration = gravitationalForce.calculateForce(object1, object2);
         Point3D expectedAcceleration = Point3D.ZERO;
 
         assertThat(actualAcceleration).isEqualTo(expectedAcceleration);
