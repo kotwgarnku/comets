@@ -10,10 +10,10 @@ public class Gravity {
     public static Point3D calculateForce(SpaceObject someObject, SpaceObject otherObject) {
         if (someObject.getPosition() == otherObject.getPosition())
             return Point3D.ZERO;
-        Point3D accelerationVector = otherObject.getPosition().subtract(someObject.getPosition());
-        double distance = accelerationVector.magnitude();
+        Point3D forceVector = otherObject.getPosition().subtract(someObject.getPosition());
+        double distance = forceVector.magnitude();
         if (distance > MAX_GRAVITY_RANGE)
             return Point3D.ZERO;
-        return accelerationVector.multiply(otherObject.getMass() / Math.pow(distance, 3));
+        return forceVector.multiply(otherObject.getMass() / Math.pow(distance, 3));
     }
 }
