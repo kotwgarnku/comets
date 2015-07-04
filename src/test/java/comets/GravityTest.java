@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.within;
 @RunWith(JUnitParamsRunner.class)
 public class GravityTest {
 
-    public static final double MAX_GRAVITY_RANGE = 5e26;
+    public static final double MAX_GRAVITY_RANGE = 50;
     public static final int MASS = 100;
     public Gravity gravitationalForce;
 
@@ -50,7 +50,7 @@ public class GravityTest {
     @Test
     public void returnsZeroAccelerationForDistantPoints() throws Exception {
         SpaceObject object1 = new SpaceObject("planet1", Point3D.ZERO, MASS);
-        Point3D distantPoint = new Point3D(MAX_GRAVITY_RANGE, 0, 0);
+        Point3D distantPoint = new Point3D(MAX_GRAVITY_RANGE+1, 0, 0);
         SpaceObject object2 = new SpaceObject("planet2", distantPoint, MASS);
 
         Point3D actualAcceleration = gravitationalForce.calculateForce(object1, object2);

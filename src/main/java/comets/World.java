@@ -7,6 +7,7 @@ import java.util.List;
 
 public class World {
     private List<SpaceObject> spaceObjects = new ArrayList<>();
+    private double time = 0;
 
     public List<SpaceObject> getSpaceObjects() {
         return spaceObjects;
@@ -18,6 +19,14 @@ public class World {
 
     public void addSpaceObjects(List<SpaceObject> spaceObjects) {
         spaceObjects.forEach(this::addSpaceObject);
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public void increaseTime(double timeStep) {
+        time += timeStep;
     }
 
     public double getEnergy() {

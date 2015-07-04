@@ -31,7 +31,7 @@ public class State {
     }
 
     public void updatePosition(Point3D positionChange) {
-        position = position.add(positionChange);
+        setPosition(position.add(positionChange));
     }
 
     public Point3D getPosition() {
@@ -48,7 +48,7 @@ public class State {
     }
 
     public void updateVelocity(Point3D velocityChange) {
-        velocity = velocity.add(velocityChange);
+        setVelocity(velocity.add(velocityChange));
     }
 
     public Point3D getVelocity() {
@@ -69,5 +69,10 @@ public class State {
 
     public void multiplyForceByGravitationalConstant() {
         force = force.multiply(Gravity.GRAVITATIONAL_CONSTANT);
+    }
+
+    public void doSimulationStep(double time, double timeStep) {
+        RungeKutta4 rk4 = new RungeKutta4(((state, t) -> state.getForce()));
+        rk4.evaluate(this, time, timeStep);
     }
 }

@@ -11,6 +11,7 @@ public class RungeKutta4 implements MovementIntegrator {
 
     private Derivative calculate(State initial, double t, double dt, Derivative d) {
         State state = new State();
+        state.setForce(initial.getForce());
         state.setPosition(initial.getPosition().add(d.dxdt.multiply(dt)));
         state.setVelocity(initial.getVelocity().add(d.dvdt.multiply(dt)));
 
