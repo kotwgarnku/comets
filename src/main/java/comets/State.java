@@ -66,4 +66,8 @@ public class State {
     public Point3D getForce() {
         return force;
     }
+
+    public void multiplyForceByGravitationalConstant() {
+        force = force.multiply(Gravity.GRAVITATIONAL_CONSTANT);
+    }
 }

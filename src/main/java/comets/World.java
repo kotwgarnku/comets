@@ -12,13 +12,14 @@ public class World {
         return spaceObjects;
     }
 
-    public void addSpaceObject(SpaceObject someObject) {
-        spaceObjects.add(someObject);
+    public void addSpaceObject(SpaceObject object) {
+        spaceObjects.add(object);
     }
 
     public void addSpaceObjects(List<SpaceObject> spaceObjects) {
         spaceObjects.forEach(this::addSpaceObject);
     }
+
     public double getEnergy() {
         double kineticEnergy = 0;
         double potentialEnergy = 0;
@@ -44,25 +45,21 @@ public class World {
     }
 
     public void calculateForces() {
-        int worldSize = getSpaceObjects().size();
-        //set every force acting on object to 0
-        getSpaceObjects().forEach((object) -> object.setForce(Point3D.ZERO));
-        //set forces between objects (vectors)
-        for(int i = 0; i < worldSize; i++) {
-            for(int j = i+1; j < worldSize; j++) {
-                SpaceObject object = getSpaceObjects().get(i);
-                SpaceObject otherObject = getSpaceObjects().get(j);
+        spaceObjects.forEach((object) -> object.setForce(Point3D.ZERO));
 
-                Point3D force = Gravity.calculateForce(object, otherObject);
-
-                object.setForce(object.getForce().add(force));
-                otherObject.setForce(otherObject.getForce().subtract(force));
+        for (int i = 0; i < spaceObjects.size(); i++) {
+            for (int j = i+1; j < spaceObjects.size(); j++) {
+                setForcesBetweenTwoObjects(spaceObjects.get(i), spaceObjects.get(j));
             }
         }
-        //multiply forces by gravitational constant
-        for(int i = 0; i < worldSize; i++) {
-            SpaceObject object = getSpaceObjects().get(i);
-            object.setForce(object.getForce().multiply(Gravity.GRAVITATIONAL_CONSTANT));
-        }
+
+        spaceObjects.forEach(SpaceObject::multiplyForceByGravitationalConstant);
+    }
+
+    private void setForcesBetweenTwoObjects(SpaceObject first, SpaceObject second) {
+        Point3D force = Gravity.calculateForce(first, second);
+
+        first.setForce(first.getForce().add(force));
+        second.setForce(second.getForce().subtract(force));
     }
 }

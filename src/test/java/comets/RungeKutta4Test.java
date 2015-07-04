@@ -14,46 +14,12 @@ public class RungeKutta4Test {
     public static final int DT = 5;
     private RungeKutta4 rk4zero;
     private RungeKutta4 rk4const;
-    /*
-    private class ExpFunction implements Equation {
 
-        @Override
-        public double f(double x, double y) {
-            return y;
-        }
+    @Before
+    public void setUp() throws Exception {
+        rk4zero = new RungeKutta4(new ZeroFunction());
+        rk4const = new RungeKutta4(new ConstantFunction());
     }
-
-    @Test
-    public void calculatesCorrectResultForExpFunction() throws Exception {
-        double y = 1; // exp(0)
-        double dxdt = 0.005;
-        ExpFunction expFunction = new ExpFunction();
-        for (double x = 0; x < 1; x += dxdt)
-            y = RungeKutta4.evaluateOld(x, y, dxdt, expFunction);
-
-        assertThat(y).isCloseTo(exp(1), within(1E-10));
-    }
-
-    // http://rosettacode.org/wiki/Runge-Kutta_method
-    private class RosettaFunction implements Equation {
-
-        @Override
-        public double f(double x, double y) {
-            return x * sqrt(y);
-        }
-    }
-
-    @Test
-    public void calculatesCorrectResultForRosettaFunction() throws Exception {
-        double y = 1;
-        double dxdt = 0.005;
-        RosettaFunction rosFunction = new RosettaFunction();
-        for (double x = 0; x < 1; x += dxdt)
-            y = RungeKutta4.evaluateOld(x, y, dxdt, rosFunction);
-
-        assertThat(y).isCloseTo((25/16f), within(1E-10));
-    }
-    */
 
     private class ZeroFunction implements Equation {
 
@@ -69,12 +35,6 @@ public class RungeKutta4Test {
         public Point3D f(State state, double t) {
             return ACCELERATION;
         }
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        rk4zero = new RungeKutta4(new ZeroFunction());
-        rk4const = new RungeKutta4(new ConstantFunction());
     }
 
     @Test

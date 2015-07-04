@@ -24,7 +24,7 @@ public class Point3DAssert extends AbstractAssert<Point3DAssert, Point3D> {
                     actual.getX(), actual.getY(), actual.getZ(),
                     point.getX(), point.getY(), point.getZ(),
                     offset.value, offset.value, offset.value,
-                    Math.abs(actual.getX()-point.getX()), Math.abs(actual.getY()-point.getY()), Math.abs(actual.getZ()-point.getZ()),
+                    Math.abs(actual.getX() - point.getX()), Math.abs(actual.getY() - point.getY()), Math.abs(actual.getZ() - point.getZ()),
                     offset.value, offset.value, offset.value);
         }
 

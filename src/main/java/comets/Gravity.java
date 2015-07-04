@@ -8,7 +8,7 @@ public class Gravity {
     public static final double MAX_GRAVITY_RANGE = 5e25;
 
     public static Point3D calculateForce(SpaceObject someObject, SpaceObject otherObject) {
-        if(someObject.getPosition() == otherObject.getPosition())
+        if (someObject.getPosition() == otherObject.getPosition())
             return Point3D.ZERO;
         Point3D accelerationVector = otherObject.getPosition().subtract(someObject.getPosition());
         double distance = accelerationVector.magnitude();

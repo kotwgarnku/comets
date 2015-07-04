@@ -35,7 +35,7 @@ public class DataManip {
             Map<String, Double> params = new HashMap<>();
             String[] keys = {"posX", "posY", "posZ", "velX", "velY", "velZ", "mass", "radius"};
             int i = 1;
-            for(String key : keys) {
+            for (String key : keys) {
                 params.put(key, Double.parseDouble(args[i]));
                 i++;
             }
