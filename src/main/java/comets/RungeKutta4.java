@@ -38,7 +38,7 @@ public class RungeKutta4 implements MovementIntegrator {
                 .add(b.dvdt.multiply(2))
                 .add(c.dvdt.multiply(2))
                 .add(d.dvdt)
-                .multiply(dt/6);
+                .multiply(dt / 6);
 
         state.updatePosition(dx);
         state.updateVelocity(dv);

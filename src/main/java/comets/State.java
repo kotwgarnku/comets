@@ -72,7 +72,7 @@ public class State {
     }
 
     public void doSimulationStep(double time, double timeStep) {
-        RungeKutta4 rk4 = new RungeKutta4(((state, t) -> state.getForce()));
+        RungeKutta4 rk4 = new RungeKutta4((state, t) -> state.getForce());
         rk4.evaluate(this, time, timeStep);
     }
 }

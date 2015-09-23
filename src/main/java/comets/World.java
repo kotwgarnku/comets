@@ -5,6 +5,8 @@ import javafx.geometry.Point3D;
 import java.util.ArrayList;
 import java.util.List;
 
+import static comets.Gravity.calculateForce;
+
 public class World {
     private List<SpaceObject> spaceObjects = new ArrayList<>();
     private double time = 0;
@@ -63,10 +65,11 @@ public class World {
         }
 
         spaceObjects.forEach(SpaceObject::multiplyForceByGravitationalConstant);
+        spaceObjects.forEach(SpaceObject::divideForceByMass);
     }
 
     private void setForcesBetweenTwoObjects(SpaceObject first, SpaceObject second) {
-        Point3D force = Gravity.calculateForce(first, second);
+        Point3D force = calculateForce(first, second);
 
         first.setForce(first.getForce().add(force));
         second.setForce(second.getForce().subtract(force));

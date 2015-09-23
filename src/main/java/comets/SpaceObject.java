@@ -34,4 +34,8 @@ public class SpaceObject extends State {
 	public String toString() {
 		return String.format("SpaceObject [name='%s', position=(%s), velocity=(%s), mass=%s, radius=%s]", name, getPosition(), getVelocity(), mass, radius);
 	}
+
+    public void divideForceByMass() {
+        setForce(getForce().multiply(1 / mass));
+    }
 }
