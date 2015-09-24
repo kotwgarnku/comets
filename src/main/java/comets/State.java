@@ -19,9 +19,7 @@ public class State {
 
     public State(Point3D position, Point3D velocity) {
         this.position = position;
-        previousPosition = Point3D.ZERO;
         this.velocity = velocity;
-        previousVelocity = Point3D.ZERO;
         force = Point3D.ZERO;
     }
 
@@ -72,7 +70,8 @@ public class State {
     }
 
     public void doSimulationStep(double time, double timeStep) {
-        RungeKutta4 rk4 = new RungeKutta4((state, t) -> state.getForce());
+        MovementIntegrator rk4 = new RungeKutta4((state, t) -> state.getForce());
+        MovementIntegrator verlet = new Verlet((state, t) -> state.getForce());
         rk4.evaluate(this, time, timeStep);
     }
 }

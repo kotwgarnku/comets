@@ -54,10 +54,10 @@ public class StateTest {
     }
 
     @Test
-    public void returnsZeroPreviousPositionAtStart() throws Exception {
+    public void returnsNullPreviousPositionAtStart() throws Exception {
         Point3D previousPosition = state.getPreviousPosition();
 
-        assertThat(previousPosition).isEqualTo(Point3D.ZERO);
+        assertThat(previousPosition).isNull();
     }
 
     @Test
@@ -83,10 +83,10 @@ public class StateTest {
     }
 
     @Test
-    public void returnsZeroPreviousVelocityAtStart() throws Exception {
+    public void returnsNullPreviousVelocityAtStart() throws Exception {
         Point3D previousVelocity = state.getPreviousVelocity();
 
-        assertThat(previousVelocity).isEqualTo(Point3D.ZERO);
+        assertThat(previousVelocity).isNull();
     }
 
     @Test
