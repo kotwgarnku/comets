@@ -1,4 +1,7 @@
-package comets;
+package comets.integration;
+
+import comets.Equation;
+import comets.State;
 
 public class Verlet implements MovementIntegrator {
     private Equation equation;

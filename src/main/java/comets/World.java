@@ -19,8 +19,8 @@ public class World {
         spaceObjects.add(object);
     }
 
-    public void addSpaceObjects(List<SpaceObject> spaceObjects) {
-        spaceObjects.forEach(this::addSpaceObject);
+    public void addSpaceObjects(List<SpaceObject> objects) {
+        spaceObjects.addAll(objects);
     }
 
     public double getTime() {

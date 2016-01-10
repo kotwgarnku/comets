@@ -1,4 +1,4 @@
-package comets;
+package comets.integration;
 
 import javafx.geometry.Point3D;
 

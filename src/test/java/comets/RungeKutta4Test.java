@@ -1,5 +1,6 @@
 package comets;
 
+import comets.integration.RungeKutta4;
 import javafx.geometry.Point3D;
 import org.junit.Before;
 import org.junit.Test;

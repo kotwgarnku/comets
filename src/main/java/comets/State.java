@@ -1,5 +1,8 @@
 package comets;
 
+import comets.integration.MovementIntegrator;
+import comets.integration.RungeKutta4;
+import comets.integration.Verlet;
 import javafx.geometry.Point3D;
 
 public class State {
